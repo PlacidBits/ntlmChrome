@@ -14,12 +14,19 @@
     <script>
         var app = angular.module("myApp", []);
 
+        //default every request to be sent with credentials
+        app.config([
+            '$httpProvider', function($httpProvider) {
+                $httpProvider.defaults.withCredentials = true;
+            }
+        ]);
+
         app.controller("myController", ["$http", myController]);
 
         function myController($http) {
             var vm = this;
 
-            $http.get("http://localhost:52002/api/values", { withCredentials: true })
+            $http.get("http://localhost:52002/api/values")
                 .then(function (response) {
                     vm.responseData = response.data;
                 },
